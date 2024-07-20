@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        h1, h2 {
+            margin: 20px 0;
+            color: rgb(123, 48, 29);
+        }
+        p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+        #previousGuesses {
+            color: blue;
+            font-size: 1.5rem;
+        }
+        #remainingGuesses {
+            color: rgb(243, 19, 19);
+            font-size: 1.7rem;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            color: rgb(123, 48, 29);
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <h1>Number Guessing Game</h1> 
+        <p>Try and guess a random number between 1 to 10. You have 10 attempts to guess the right number.</p>
+        <h2>Guess a Number</h2>
+        <input id="input" type="number" min="1" max="10" disabled>
+        <button id="submit" type="button" disabled>Submit Guess</button>
+        <p>Previous Guesses: <span id="previousGuesses"></span></p>
+        <p>Guesses Remaining: <span id="remainingGuesses">10</span></p>
+        <button id="startButton" type="button">Start Game</button>
+        <p id="message"></p>
+    </form>
+
+    <script>
+        const startButton = document.querySelector("#startButton");
+        const submitGuessButton = document.querySelector("#submit");
+        const userGuessInput = document.querySelector("#input");
+        const prevGuessElement = document.querySelector("#previousGuesses");
+        const remainingGuessesElement = document.querySelector("#remainingGuesses");
+        const messageElement = document.querySelector("#message");
+
+        let computerGuess;
+        let previousGuesses;
+        let remainingGuesses;
+
+        const startGame = () => {
+            computerGuess = Math.floor(Math.random() * 10) + 1;
+            previousGuesses = [];
+            remainingGuesses = 10;
+            userGuessInput.value = '';
+            userGuessInput.disabled = false;
+            submitGuessButton.disabled = false;
+            prevGuessElement.textContent = '';
+            remainingGuessesElement.textContent = remainingGuesses;
+            messageElement.textContent = '';
+        };
+
+        const submitGuess = () => {
+            const userGuess = parseInt(userGuessInput.value);
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 10) {
+                messageElement.textContent = "Please enter a valid number between 1 and 10.";
+                return;
+            }
+
+            previousGuesses.push(userGuess);
+            remainingGuesses--;
+            prevGuessElement.textContent = previousGuesses.join(', ');
+            remainingGuessesElement.textContent = remainingGuesses;
+
+            if (userGuess === computerGuess) {
+                messageElement.textContent = "Congratulations! You guessed the correct number!";
+                endGame();
+            } else if (remainingGuesses === 0) {
+                messageElement.textContent = `Sorry, you've used all your attempts. The correct number was ${computerGuess}.`;
+                endGame();
+            } else {
+                messageElement.textContent = userGuess < computerGuess ? "Try a higher number." : "Try a lower number.";
+            }
+        };
+
+        const endGame = () => {
+            userGuessInput.disabled = true;
+            submitGuessButton.disabled = true;
+        };
+
+        startButton.addEventListener("click", startGame);
+        submitGuessButton.addEventListener("click", submitGuess);
+    </script>
+</body>
+</html>

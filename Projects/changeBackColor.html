@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>changeColor</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Color scheme swicher</h1>
+        <div class="buttons">
+            <button class="button" id="pink"></button>
+            <button class="button" id="red"></button>
+            <button class="button" id="orange"></button>
+            <button class="button" id="peach"></button>
+           
+        </div>
+        <p>Try clicking on one of the colors above, </p>
+        <p>to chage the background color</p>
+
+    </div>
+    <script>
+        const buttons = document.querySelectorAll(".button")
+        const body = document.querySelector('body')
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function(e){
+                console.log(e.target.id)
+                if(e.target.id === "pink"){
+                    body.style.backgroundColor =  " rgb(245, 126, 146)";
+                }else  if(e.target.id === "red"){
+                    body.style.backgroundColor =  " rgb(231, 55, 55)";
+                } else if(e.target.id === "orange"){
+                    body.style.backgroundColor =  " rgb(250, 87, 28)";
+                } else if(e.target.id === "peach"){
+                    body.style.backgroundColor =  "  rgb(249, 196, 149)";
+                }
+
+            } )
+        })
+
+        
+    </script>
+    <style>
+         body,html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* background-color: rgb(247, 235, 238); */
+        }
+        .container{
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        p{
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .button{
+            height: 6rem;
+            width: 6rem;
+            
+        }
+        #pink{
+            background-color: rgb(245, 126, 146);
+
+        }
+        #red{
+           background-color: rgb(231, 55, 55); 
+        }
+        #orange{
+           background-color: rgb(250, 87, 28);
+        }
+        #peach{
+            background-color: rgb(249, 196, 149);
+        }
+    </style>
+
+    <script></script>
+</body>
+</html>
